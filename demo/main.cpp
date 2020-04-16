@@ -12,15 +12,15 @@ std::string md5(Svar paras){
 }
 
 double sum(Svar paras){
-    return paras["x"].castAs<double>()+paras["y"].castAs<double>();
+    double x=std::stod(paras["x"].as<std::string>());
+    double y=std::stod(paras["y"].as<std::string>());
+
+    return x+y;
 }
 
 int main(int argc,char** argv){
     svar["md5"]=md5;
     svar["sum"]=sum;
-
-    Class<std::string>()
-            .def("__double__",[](std::string& str){return std::stod(str);});
 
     auto Server=http["Server"]("0.0.0.0",1234,svar);
 
